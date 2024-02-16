@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://mb2pd48sti4s"]
+
+[ext_resource type="Texture2D" uid="uid://bi06rn7a8s1t6" path="res://ArtAssets/Enemies/npc.png" id="1_0c4b8"]
+[ext_resource type="Script" path="res://Scripts/enemy_template.gd" id="1_ulvi6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ndr83"]
+radius = 54.0093
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ihqj5"]
+size = Vector2(16, 16)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fjwe8"]
+radius = 12.0416
+
+[node name="EnemyTemplate" type="CharacterBody2D"]
+script = ExtResource("1_ulvi6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_0c4b8")
+
+[node name="AggroRange" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="AggroShape" type="CollisionShape2D" parent="AggroRange"]
+shape = SubResource("CircleShape2D_ndr83")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ihqj5")
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="HitboxShape" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_fjwe8")
+
+[connection signal="body_entered" from="AggroRange" to="." method="_on_aggro_range_body_entered"]
+[connection signal="body_exited" from="AggroRange" to="." method="_on_aggro_range_body_exited"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
