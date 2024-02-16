@@ -33,3 +33,6 @@ func _on_hitbox_area_entered(area):
 		print('Enemy Health: ' + str(enemyHealth))
 		if(enemyHealth <= 0): #if it goes to or below 0 hp, remove from scene
 			queue_free()
+		else:
+			var knockback_dir = area.owner.position.direction_to(self.position) #direction from weapon to self
+			position += (knockback_dir * area.owner.weaponKnockback) * 10 #pushes the enemy back based on weapon knockback strength

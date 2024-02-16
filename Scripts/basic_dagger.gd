@@ -1,8 +1,8 @@
 extends Node2D
 
 var weaponDamage = 10 
-var weaponKnockback = 1
-var weaponDuration = 0.7
+var weaponKnockback = 2.3
+var weaponDuration = 0.2
 var weaponSpeed = 30
 var direction = Vector2.DOWN #default value of down
 
@@ -10,6 +10,7 @@ func isWeapon():
 	pass
 
 func _ready(): #after the object is made, immediately start the timer
+	$DurationTimer.set_wait_time(weaponDuration)
 	$DurationTimer.start()
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
