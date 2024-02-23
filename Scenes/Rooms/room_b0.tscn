@@ -28,4 +28,5 @@ position = Vector2(146, 61)
 [node name="PlayerDetect" parent="Detector" index="0"]
 position = Vector2(352, 127)
 
-[connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]
+[node name="PlayerSpawn" parent="." index="4"]
+position = Vector2(352, 128)

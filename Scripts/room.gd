@@ -2,7 +2,6 @@ extends Node2D
 
 const ENEMY_SCENES: Dictionary = {"ENEMY_TEMPLATE" : preload("res://Objects/enemy_template.tscn")}
 var enemy_num: int
-@onready var entrance_node = get_node("Entrance")
 @onready var doors_node = get_node("Doors")
 @onready var enemy_positions = get_node("Enemy")
 @onready var player_detection: Area2D = get_node("Detector")
@@ -25,7 +24,7 @@ func spawn_enemies():
 		mob.position = enemy.position
 		call_deferred("add_child", mob)
 
-func _on_detector_body_entered(body): #area the player steps in to spawn enemies (by the entrance of the room)
+func _on_detector_body_entered(_body): #area the player steps in to spawn enemies (by the entrance of the room)
 	player_detection.queue_free()
 	spawn_enemies()
 	close_door()

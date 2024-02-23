@@ -37,5 +37,3 @@ position = Vector2(112, 220)
 
 [node name="PlayerChar" parent="." index="4" instance=ExtResource("3_r3v4c")]
 position = Vector2(112, 272)
-
-[connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]

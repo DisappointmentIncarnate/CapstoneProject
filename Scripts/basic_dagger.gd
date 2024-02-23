@@ -14,7 +14,7 @@ func _ready(): #after the object is made, immediately start the timer
 	$DurationTimer.start()
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass
 
 func _on_duration_timer_timeout(): #after the timer runs out, delete the item

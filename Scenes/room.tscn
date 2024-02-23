@@ -1,7 +1,7 @@
 [gd_scene load_steps=26 format=3 uid="uid://cqixsbxn2y46u"]
 
+[ext_resource type="Script" path="res://Scripts/room.gd" id="1_4of21"]
 [ext_resource type="Texture2D" uid="uid://7rnemkfxwr1r" path="res://ArtAssets/Tilesets/grass_tiles.png" id="1_aljmk"]
-[ext_resource type="Script" path="res://Scenes/room.gd" id="1_ev7oo"]
 [ext_resource type="Texture2D" uid="uid://b7u3jqjagb5vo" path="res://ArtAssets/Tilesets/grass_path_tiles.png" id="2_y7wh4"]
 [ext_resource type="Texture2D" uid="uid://c146ddlafdh5k" path="res://ArtAssets/Tilesets/bridge_tiles.png" id="3_qduyd"]
 [ext_resource type="Texture2D" uid="uid://bv6kvtx608u05" path="res://ArtAssets/Tilesets/stair_tiles.png" id="4_i0hj8"]
@@ -364,7 +364,7 @@ sources/10 = SubResource("TileSetAtlasSource_6vem8")
 size = Vector2(20, 22)
 
 [node name="Room" type="Node2D"]
-script = ExtResource("1_ev7oo")
+script = ExtResource("1_4of21")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_glr4o")
@@ -378,6 +378,8 @@ format = 2
 
 [node name="PlayerDetect" type="CollisionShape2D" parent="Detector"]
 shape = SubResource("RectangleShape2D_ops31")
+
+[node name="PlayerSpawn" type="Node2D" parent="."]
 
 [connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]
 [connection signal="body_entered" from="Detector" to="." method="_on_detector_body_entered"]
