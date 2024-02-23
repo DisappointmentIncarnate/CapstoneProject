@@ -33,6 +33,10 @@ shape = SubResource("RectangleShape2D_ihqj5")
 [node name="HitboxShape" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("CircleShape2D_fjwe8")
 
+[node name="HurtInvulnerability" type="Timer" parent="."]
+wait_time = 0.5
+
 [connection signal="body_entered" from="AggroRange" to="." method="_on_aggro_range_body_entered"]
 [connection signal="body_exited" from="AggroRange" to="." method="_on_aggro_range_body_exited"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="timeout" from="HurtInvulnerability" to="." method="_on_hurt_invulnerability_timeout"]

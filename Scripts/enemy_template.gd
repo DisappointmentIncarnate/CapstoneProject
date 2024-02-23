@@ -5,6 +5,7 @@ extends CharacterBody2D
 @export var contactDamage = 5
 var detection = false
 var playerReference = null
+var invulnerability = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -28,11 +29,17 @@ func _on_aggro_range_body_exited(_body):
 	detection = false
 
 func _on_hitbox_area_entered(area):
-	if(area.owner.has_method('isWeapon')): #if a weapon enters the hitbox area
+	if(area.owner.has_method('isWeapon') and !invulnerability): #if a weapon enters the hitbox area
 		enemyHealth = enemyHealth - area.owner.weaponDamage
+		invulnerability = true
+		$HurtInvulnerability.start()
 		print('Enemy Health: ' + str(enemyHealth))
 		if(enemyHealth <= 0): #if it goes to or below 0 hp, remove from scene
 			queue_free()
 		else:
 			var knockback_dir = area.owner.position.direction_to(self.position) #direction from weapon to self
-			position += (knockback_dir * area.owner.weaponKnockback) * 10 #pushes the enemy back based on weapon knockback strength
+			position += (knockback_dir * area.owner.weaponKnockback) * 5 #pushes the enemy back based on weapon knockback strength
+
+
+func _on_hurt_invulnerability_timeout(): #damage invulnerability for 1s
+	invulnerability = false

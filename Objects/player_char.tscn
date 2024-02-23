@@ -27,7 +27,6 @@ shape = SubResource("RectangleShape2D_ukdyp")
 shape = SubResource("CircleShape2D_stdfl")
 
 [node name="HurtInvulnerability" type="Timer" parent="."]
-wait_time = 2.0
 
 [node name="WeaponDirection" type="Node2D" parent="."]
 
