@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bk2488djfnso6"]
+
+[ext_resource type="PackedScene" uid="uid://dmiexxcs7s0uj" path="res://Objects/player_char.tscn" id="1_qw7fj"]
+[ext_resource type="PackedScene" uid="uid://bbdqbckj5tui7" path="res://Scenes/Rooms/room_0.tscn" id="2_84l4x"]
+
+[node name="Game" type="Node2D"]
+
+[node name="PlayerChar" parent="." instance=ExtResource("1_qw7fj")]
+position = Vector2(356, 144)
+speed = 150
+
+[node name="Rooms" type="Node2D" parent="."]
+
+[node name="Room0" parent="Rooms" instance=ExtResource("2_84l4x")]
+position = Vector2(5, 17)

@@ -3,7 +3,7 @@ extends Node2D
 var weaponDamage = 10 
 var weaponKnockback = 2.3
 var weaponDuration = 0.2
-var weaponSpeed = 30
+var weaponSpeed = 50
 var direction = Vector2.DOWN #default value of down
 
 func isWeapon():

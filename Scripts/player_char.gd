@@ -24,12 +24,13 @@ func _process(_delta):
 		take_damage()
 	if (Input.is_action_just_pressed("input1") and !weaponAction): #if you press the input, and you are currently not already performing an attack
 		weapon_attack()
-		$WeaponCooldown.set_wait_time(weaponAttackTime) #timer for attack cooldown
-		$WeaponCooldown.start()
 	
 # documentation states this function runs 60 times a second regardless of actual framerate, recommended for movement and things that can collide
 func _physics_process(_delta):
-	get_movement_input()
+	if !weaponAction:
+		get_movement_input()
+	else:
+		velocity = Vector2(0,0)
 	move_and_slide()
 	
 func get_movement_input(): #left, right, up, down are set in the project setting's input mapping
@@ -75,6 +76,8 @@ func weapon_attack():
 	weapon.global_position = Vector2($WeaponDirection.global_position)
 	weapon.look_at(position + facingDirection) 
 	get_parent().add_child(weapon)
+	$WeaponCooldown.set_wait_time(weaponAttackTime) #timer for attack cooldown
+	$WeaponCooldown.start()
 
 func _on_weapon_cooldown_timeout():
 	weaponAction = false
