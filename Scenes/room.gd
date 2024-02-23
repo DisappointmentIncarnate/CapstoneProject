@@ -9,10 +9,15 @@ var enemy_num: int
 
 func _ready():
 	enemy_num = enemy_positions.get_child_count()
+	open_door()
 	
 func open_door():
 	for door in doors_node.get_children():
 		door.open()
+		
+func close_door():
+	for door in doors_node.get_children():
+		door.close()
 
 func spawn_enemies():
 	for enemy in enemy_positions.get_children():
@@ -23,6 +28,7 @@ func spawn_enemies():
 func _on_detector_body_entered(body): #area the player steps in to spawn enemies (by the entrance of the room)
 	player_detection.queue_free()
 	spawn_enemies()
+	close_door()
 
 
 func _on_child_exiting_tree(node):

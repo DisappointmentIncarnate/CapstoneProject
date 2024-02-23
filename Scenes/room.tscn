@@ -217,19 +217,19 @@ texture = ExtResource("6_qgpqv")
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-6.875, -6.75, 6.625, -6.75, 6.75, 6.625, -6.875, 6.5)
 1:0/0 = 0
 1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:0/0/physics_layer_0/angular_velocity = 0.0
-1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -8, 8, 8, -8, 8, -8, -8)
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-6.875, -6.75, 6.625, -6.75, 6.75, 6.625, -6.875, 6.5)
 1:1/0 = 0
 1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:1/0/physics_layer_0/angular_velocity = 0.0
-1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -8, 8, 8, -8, 8, -8, -8)
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-6.875, -6.75, 6.625, -6.75, 6.75, 6.625, -6.875, 6.5)
 0:1/0 = 0
 0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:1/0/physics_layer_0/angular_velocity = 0.0
-0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -8, 8, 8, -8, 8, -8, -8)
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-6.875, -6.75, 6.625, -6.75, 6.75, 6.625, -6.875, 6.5)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uv2wa"]
 texture = ExtResource("7_jeo03")
@@ -370,8 +370,6 @@ script = ExtResource("1_ev7oo")
 tile_set = SubResource("TileSet_glr4o")
 format = 2
 
-[node name="Entrance" type="Node2D" parent="."]
-
 [node name="Doors" type="Node2D" parent="."]
 
 [node name="Enemy" type="Node2D" parent="."]
@@ -381,4 +379,5 @@ format = 2
 [node name="PlayerDetect" type="CollisionShape2D" parent="Detector"]
 shape = SubResource("RectangleShape2D_ops31")
 
+[connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]
 [connection signal="body_entered" from="Detector" to="." method="_on_detector_body_entered"]
