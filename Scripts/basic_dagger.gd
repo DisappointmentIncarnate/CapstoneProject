@@ -1,6 +1,6 @@
 extends Node2D
 
-var weaponDamage = 10 
+var weaponDamage = 100 #value should be 10, but for testing purposes its set higher 
 var weaponKnockback = 2.3
 var weaponDuration = 0.2
 var weaponSpeed = 50

@@ -17,7 +17,7 @@ func _process(_delta):
 	
 func _physics_process(_delta):
 	if detection:
-		position += (playerReference.position - position)/slowdown #move the enemy towards the position of the player, at a specific speed (higher slowdown, slower the speed)
+		global_position += (playerReference.global_position - global_position)/slowdown #move the enemy towards the position of the player, at a specific speed (higher slowdown, slower the speed)
 	move_and_collide(Vector2(0,0))
 	
 func _on_aggro_range_body_entered(body):
@@ -37,8 +37,8 @@ func _on_hitbox_area_entered(area):
 		if(enemyHealth <= 0): #if it goes to or below 0 hp, remove from scene
 			queue_free()
 		else:
-			var knockback_dir = area.owner.position.direction_to(self.position) #direction from weapon to self
-			position += (knockback_dir * area.owner.weaponKnockback) * 5 #pushes the enemy back based on weapon knockback strength
+			var knockback_dir = area.owner.global_position.direction_to(self.global_position) #direction from weapon to self
+			global_position += (knockback_dir * area.owner.weaponKnockback) * 5 #pushes the enemy back based on weapon knockback strength
 
 
 func _on_hurt_invulnerability_timeout(): #damage invulnerability for 1s

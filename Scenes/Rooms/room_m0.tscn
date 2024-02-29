@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://6bvl840ofqg7"]
+[gd_scene load_steps=3 format=3 uid="uid://6bvl840ofqg7"]
 
 [ext_resource type="PackedScene" uid="uid://cqixsbxn2y46u" path="res://Scenes/room.tscn" id="1_s80d8"]
 [ext_resource type="PackedScene" uid="uid://dt57dhn0mugjy" path="res://Objects/door.tscn" id="2_3dlor"]
-[ext_resource type="PackedScene" uid="uid://dmiexxcs7s0uj" path="res://Objects/player_char.tscn" id="3_r3v4c"]
 
 [node name="Room" instance=ExtResource("1_s80d8")]
 
@@ -14,10 +13,10 @@ layer_1/name = "Floor"
 layer_1/z_index = -2
 layer_1/tile_data = PackedInt32Array(655369, 196617, 1, 655368, 131081, 1, 589832, 131081, 0, 589833, 196617, 0, 458756, 65546, 0)
 
-[node name="Door" parent="Doors" index="0" instance=ExtResource("2_3dlor")]
+[node name="Exit" parent="Doors" index="0" instance=ExtResource("2_3dlor")]
 position = Vector2(112, 56)
 
-[node name="Door2" parent="Doors" index="1" instance=ExtResource("2_3dlor")]
+[node name="Entrance" parent="Doors" index="1" instance=ExtResource("2_3dlor")]
 position = Vector2(112, 248)
 
 [node name="Marker2D" type="Marker2D" parent="Enemy" index="0"]
@@ -34,6 +33,3 @@ position = Vector2(0, -1)
 
 [node name="PlayerDetect" parent="Detector" index="0"]
 position = Vector2(112, 220)
-
-[node name="PlayerChar" parent="." index="4" instance=ExtResource("3_r3v4c")]
-position = Vector2(112, 272)

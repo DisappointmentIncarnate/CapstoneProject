@@ -16,7 +16,7 @@ layer_2/name = "Ground"
 layer_2/z_index = -1
 layer_2/tile_data = PackedInt32Array(327696, 8, 0, 327697, 65544, 0, 393232, 8, 1, 393233, 65544, 1, 458755, 9, 0, 458756, 65545, 0, 524291, 9, 1, 524292, 65545, 1, 196615, 10, 0, 786449, 65546, 0, 262162, 65546, 1)
 
-[node name="Door" parent="Doors" index="0" instance=ExtResource("2_eke75")]
+[node name="Exit" parent="Doors" index="0" instance=ExtResource("2_eke75")]
 position = Vector2(80, 23)
 
 [node name="Marker2D" type="Marker2D" parent="Enemy" index="0"]
