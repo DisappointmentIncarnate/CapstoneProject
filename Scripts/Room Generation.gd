@@ -9,22 +9,34 @@ const TILE = 16 #texture size used for move rooms by the correct tile size (16x1
 const FLOOR_INDEX = 1 #texture id for the floor (1 is the grass path texture id)
 const WALLS = 7 #texture id for the walls (7 is the id for the brick tile)
 
-@export var levelSize = 5
+@export var currentFloor = 1
+@export var floorSize: int
+var finalRoom
+
 @onready var PlayerChar = get_parent().get_node("PlayerChar") #get reference to player character
 
 func _ready():
 	spawn_rooms()
 	
+func _process(_delta):
+	if(finalRoom != null and finalRoom.floor_cleared == true): #if the player enters the staircase in the final room
+		currentFloor+=1
+		self.get_parent().get_node("Hud").set_floor(currentFloor) 
+		delete_rooms()
+		spawn_rooms()
+		
 func spawn_rooms():
+	floorSize = 2 + (currentFloor) #calculates floor size based on how many floors the player has been through
 	var previousRoom
-	for x in levelSize:
+	for x in floorSize:
 		var room
 		if x == 0: #if beginning room
 			room = BEGINNING[randi() % BEGINNING.size()].instantiate() #randi() is a random int, mod ensures it actually is within the confines of the array
 			PlayerChar.position = room.get_node("PlayerSpawn").position #since its a spawn room, set the players position to the spawn point
 		else: #if they are not the first room, we need to make connections
-			if x == levelSize-1: #make last room, 1 off because start index 0
+			if x == floorSize-1: #make last room, 1 off because start index 0
 				room = END[randi() % END.size()].instantiate()
+				finalRoom = room #save reference to final room
 			else: #middle rooms
 				room = MIDDLE[randi() % MIDDLE.size()].instantiate()
 				
@@ -47,3 +59,7 @@ func spawn_rooms():
 		
 		add_child(room)
 		previousRoom = room
+
+func delete_rooms(): #remove all child nodes (removing all rooms)
+	for x in get_children():
+		x.queue_free()

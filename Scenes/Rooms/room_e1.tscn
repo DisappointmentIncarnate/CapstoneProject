@@ -33,3 +33,6 @@ position = Vector2(416, 198)
 
 [node name="PlayerSpawn" parent="." index="4"]
 position = Vector2(0, 36)
+
+[node name="Stairs" parent="FloorEnd" index="0"]
+position = Vector2(104, 35)

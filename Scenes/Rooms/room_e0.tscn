@@ -27,3 +27,6 @@ position = Vector2(48, 114)
 
 [node name="PlayerDetect" parent="Detector" index="0"]
 position = Vector2(64, 219)
+
+[node name="Stairs" parent="FloorEnd" index="0"]
+position = Vector2(200, 36)

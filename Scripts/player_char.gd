@@ -20,8 +20,8 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if enemyContact and !invulnerability: #if the player is in contact with a damage source, and is not invulnerable
-		print("PLAYER HEALTH: " + str(playerHealth))
 		take_damage()
+		print("PLAYER HEALTH: " + str(playerHealth))
 	if (Input.is_action_just_pressed("input1") and !weaponAction): #if you press the input, and you are currently not already performing an attack
 		weapon_attack()
 	
@@ -51,7 +51,7 @@ func get_movement_input(): #left, right, up, down are set in the project setting
 		facingDirection = Vector2.DOWN
 
 func _on_hitbox_body_entered(body):
-	if(body.has_method('_on_aggro_range_body_entered') and invulnerability == false): #if the body that enters the range also has an aggro (i.e it's an enemy)
+	if(body.has_method('_on_aggro_range_body_entered')): #if the body that enters the range also has an aggro (i.e it's an enemy)
 		damageOrigin = body; #variable to reference the origin of the damage
 		enemyContact = true #flags whether or not the player is in contact with an enemy
 
@@ -62,6 +62,10 @@ func take_damage(): #function to reduce player health, start damager invulernabi
 	playerHealth = playerHealth - damageOrigin.contactDamage
 	$HurtInvulnerability.start()
 	invulnerability = true
+	if(playerHealth <= 0):
+		alive = false
+		queue_free()
+	self.get_parent().get_node("Hud").set_health(playerHealth) #changes the hud's text with the new total health
 
 func _on_hitbox_body_exited(body): #if the player no longer is in contact with an enemy
 	if(body.has_method('_on_aggro_range_body_entered')):

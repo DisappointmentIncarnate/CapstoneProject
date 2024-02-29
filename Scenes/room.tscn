@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cqixsbxn2y46u"]
+[gd_scene load_steps=27 format=3 uid="uid://cqixsbxn2y46u"]
 
 [ext_resource type="Script" path="res://Scripts/room.gd" id="1_4of21"]
 [ext_resource type="Texture2D" uid="uid://7rnemkfxwr1r" path="res://ArtAssets/Tilesets/grass_tiles.png" id="1_aljmk"]
@@ -363,6 +363,9 @@ sources/10 = SubResource("TileSetAtlasSource_6vem8")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ops31"]
 size = Vector2(20, 10)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wydvy"]
+size = Vector2(16, 16)
+
 [node name="Room" type="Node2D"]
 script = ExtResource("1_4of21")
 
@@ -381,5 +384,11 @@ shape = SubResource("RectangleShape2D_ops31")
 
 [node name="PlayerSpawn" type="Node2D" parent="."]
 
+[node name="FloorEnd" type="Area2D" parent="."]
+
+[node name="Stairs" type="CollisionShape2D" parent="FloorEnd"]
+shape = SubResource("RectangleShape2D_wydvy")
+
 [connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]
 [connection signal="body_entered" from="Detector" to="." method="_on_detector_body_entered"]
+[connection signal="body_entered" from="FloorEnd" to="." method="_on_floor_end_body_entered"]

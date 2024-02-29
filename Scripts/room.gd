@@ -6,6 +6,8 @@ var enemy_num: int
 @onready var enemy_positions = get_node("Enemy")
 @onready var player_detection: Area2D = get_node("Detector")
 
+var floor_cleared = false #custom signal to emit when the player reaches the end of the floor
+
 func _ready():
 	enemy_num = enemy_positions.get_child_count()
 	open_door()
@@ -38,3 +40,7 @@ func enemy_killed(): #checks whether or not to open the doors, based on enemy co
 	enemy_num -=1
 	if enemy_num == 0:
 		open_door()
+
+func _on_floor_end_body_entered(body):
+	if(body.has_method('get_movement_input')):
+		floor_cleared = true

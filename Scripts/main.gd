@@ -1,4 +1,5 @@
 extends Node2D
 
-func _init():
-	randomize()
+func _ready():
+	randomize() #randomize ensures that room generation is truly randomized and does not generate the same numbers every time the game is reloaded
+
