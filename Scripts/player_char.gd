@@ -8,14 +8,17 @@ var invulnerability = false #whether or not to be invulnerable after taking a hi
 var enemyContact = false #whether an enemy is touching the player
 var damageOrigin #used as a temporary variable to keep reference
 
-var weaponPath = preload('res://Objects/basic_dagger.tscn') #loading a basic weapon
+var weaponPath  #variable used for loading a weapon
 var facingDirection = Vector2.DOWN #the direction the player faces
 var weaponAttackTime #used to determine how often a weapon can be fired off
 var weaponAction = false #flag to determine whether or now the player is currently performing an action with the weapon
 
+var onWeapon = false #flag to check whether or not the player is currently standing on a weapon
+var newWeapon #reference to object on floor, used to swap weapons
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -23,7 +26,9 @@ func _process(_delta):
 		take_damage()
 		print("PLAYER HEALTH: " + str(playerHealth))
 	if (Input.is_action_just_pressed("input1") and !weaponAction): #if you press the input, and you are currently not already performing an attack
-		weapon_attack()
+		weapon_attack(false)
+	if (Input.is_action_just_pressed("interact") and onWeapon):
+		swap_weapon()
 	
 # documentation states this function runs 60 times a second regardless of actual framerate, recommended for movement and things that can collide
 func _physics_process(_delta):
@@ -72,16 +77,44 @@ func _on_hitbox_body_exited(body): #if the player no longer is in contact with a
 		enemyContact = false
 		
 #flags that a weapon attack has started, generates an instance of the weapon, properly redirections the sprite
-func weapon_attack():
+func weapon_attack(isDrop):
 	weaponAction = true
+	if(weaponPath == null): #first attack / if theres ever a reason this breaks, the default weapon is the dagger
+		weaponPath = load('res://Objects/Weapons/basic_dagger.tscn')
+		
 	var weapon = weaponPath.instantiate()
 	weapon.direction = facingDirection
-	weaponAttackTime = weapon.weaponDuration
 	weapon.global_position = Vector2($WeaponDirection.global_position)
 	weapon.look_at(position + facingDirection) 
-	get_parent().add_child(weapon)
+	weaponAttackTime = weapon.weaponDuration
+	weapon.isDrop = isDrop
+	if(isDrop):
+		weaponAttackTime = 0.1
 	$WeaponCooldown.set_wait_time(weaponAttackTime) #timer for attack cooldown
 	$WeaponCooldown.start()
+	
+	get_parent().add_child(weapon)
 
 func _on_weapon_cooldown_timeout():
 	weaponAction = false
+	
+func swap_weapon():
+	weapon_attack(true)
+	weaponPath = load('res://Objects/Weapons/' + newWeapon.name + '.tscn') #makes a path to the weapon that was chosen)
+	print(weaponPath)
+	remove_weapon(newWeapon)
+
+func _on_hitbox_area_entered(area): #function to detect whether the player is standing in an area (in this case used for weapons)
+	if(area.owner.has_method('isWeapon')):
+		print(area.owner.name)
+		onWeapon = true
+		newWeapon = area.owner
+
+func _on_hitbox_area_exited(area):
+	if(area == null):
+		onWeapon = false
+	elif(area.owner.has_method('isWeapon')):
+		onWeapon = false
+
+func remove_weapon(item):
+	item.queue_free()

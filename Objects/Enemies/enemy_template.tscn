@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://mb2pd48sti4s"]
 
-[ext_resource type="Texture2D" uid="uid://bi06rn7a8s1t6" path="res://ArtAssets/Enemies/npc.png" id="1_0c4b8"]
-[ext_resource type="Script" path="res://Scripts/enemy_template.gd" id="1_ulvi6"]
+[ext_resource type="Script" path="res://Scripts/enemy_template.gd" id="1_q1rif"]
+[ext_resource type="Texture2D" uid="uid://bi06rn7a8s1t6" path="res://ArtAssets/Enemies/npc.png" id="2_hnt8g"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ndr83"]
 radius = 54.0093
@@ -13,10 +13,10 @@ size = Vector2(16, 16)
 radius = 11.0
 
 [node name="EnemyTemplate" type="CharacterBody2D"]
-script = ExtResource("1_ulvi6")
+script = ExtResource("1_q1rif")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_0c4b8")
+texture = ExtResource("2_hnt8g")
 
 [node name="AggroRange" type="Area2D" parent="."]
 collision_layer = 2

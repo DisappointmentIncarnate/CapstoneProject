@@ -32,7 +32,7 @@ func _on_detector_body_entered(_body): #area the player steps in to spawn enemie
 	close_door()
 
 
-func _on_child_exiting_tree(node):
+func _on_child_exiting_tree(node): #checks if enemy node is removed from the tree
 	if(node.has_method('_on_aggro_range_body_entered')): #if an enemy is removed
 		enemy_killed()
 
@@ -41,6 +41,6 @@ func enemy_killed(): #checks whether or not to open the doors, based on enemy co
 	if enemy_num == 0:
 		open_door()
 
-func _on_floor_end_body_entered(body):
+func _on_floor_end_body_entered(body): #if the player enters the stair tile
 	if(body.has_method('get_movement_input')):
 		floor_cleared = true

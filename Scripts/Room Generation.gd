@@ -11,7 +11,7 @@ const WALLS = 7 #texture id for the walls (7 is the id for the brick tile)
 
 @export var currentFloor = 1
 @export var floorSize: int
-var finalRoom
+var finalRoom #reference used to store the final room
 
 @onready var PlayerChar = get_parent().get_node("PlayerChar") #get reference to player character
 

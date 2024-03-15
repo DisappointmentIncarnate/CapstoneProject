@@ -1,9 +1,9 @@
 extends Node2D
 
-var weaponDamage = 10 #value should be 10, but for testing purposes its set higher 
-var weaponKnockback = 2.3
-var weaponDuration = 0.2
-var weaponSpeed = 50
+var weaponDamage = 20 #value should be 10, but for testing purposes its set higher 
+var weaponKnockback = 7.2
+var weaponDuration = 0.3
+var weaponSpeed = 45
 var direction = Vector2.DOWN #default value of down
 var isDrop = true
 
