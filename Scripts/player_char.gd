@@ -79,7 +79,7 @@ func _on_hitbox_body_exited(body): #if the player no longer is in contact with a
 #flags that a weapon attack has started, generates an instance of the weapon, properly redirections the sprite
 func weapon_attack(isDrop):
 	weaponAction = true
-	if(weaponPath == null): #first attack / if theres ever a reason this breaks, the default weapon is the dagger
+	if(weaponPath == null): #if theres ever a reason this breaks, the default weapon is the dagger
 		weaponPath = load('res://Objects/Weapons/basic_dagger.tscn')
 		
 	var weapon = weaponPath.instantiate()
@@ -100,21 +100,26 @@ func _on_weapon_cooldown_timeout():
 	
 func swap_weapon():
 	weapon_attack(true)
-	weaponPath = load('res://Objects/Weapons/' + newWeapon.name + '.tscn') #makes a path to the weapon that was chosen)
-	print(weaponPath)
+	weaponPath = load(newWeapon.scene_file_path) #makes a path to the weapon that was chosen)
 	remove_weapon(newWeapon)
 
 func _on_hitbox_area_entered(area): #function to detect whether the player is standing in an area (in this case used for weapons)
 	if(area.owner.has_method('isWeapon')):
-		print(area.owner.name)
 		onWeapon = true
 		newWeapon = area.owner
 
 func _on_hitbox_area_exited(area):
 	if(area == null):
 		onWeapon = false
-	elif(area.owner.has_method('isWeapon')):
+	elif(area.owner != null and area.owner.has_method('isWeapon') ):
 		onWeapon = false
 
 func remove_weapon(item):
 	item.queue_free()
+
+func set_health(add): #method called on by external objects, like healing
+	if(playerHealth + add > 100): #max health of 100, never overflow
+		playerHealth = 100
+	else:
+		playerHealth = playerHealth + add
+	self.get_parent().get_node("Hud").set_health(playerHealth)

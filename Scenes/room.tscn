@@ -389,6 +389,8 @@ shape = SubResource("RectangleShape2D_ops31")
 [node name="Stairs" type="CollisionShape2D" parent="FloorEnd"]
 shape = SubResource("RectangleShape2D_wydvy")
 
+[node name="Crate" type="Node2D" parent="."]
+
 [connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]
 [connection signal="body_entered" from="Detector" to="." method="_on_detector_body_entered"]
 [connection signal="body_entered" from="FloorEnd" to="." method="_on_floor_end_body_entered"]

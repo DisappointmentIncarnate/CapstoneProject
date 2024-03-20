@@ -1,16 +1,19 @@
 extends Node2D
 
-const ENEMY_SCENES: Dictionary = {"ENEMY_TEMPLATE" : preload("res://Objects/enemy_template.tscn")}
+const ENEMY_SCENES: Dictionary = {"ENEMY_TEMPLATE" : preload("res://Objects/Enemies/enemy_template.tscn")}
+const BOXES: Dictionary = {"Crate" : preload("res://Objects/crate.tscn")}
 var enemy_num: int
 @onready var doors_node = get_node("Doors")
 @onready var enemy_positions = get_node("Enemy")
 @onready var player_detection: Area2D = get_node("Detector")
+@onready var crate_positions = get_node("Crate")
 
 var floor_cleared = false #custom signal to emit when the player reaches the end of the floor
 
 func _ready():
 	enemy_num = enemy_positions.get_child_count()
 	open_door()
+	spawn_crates()
 	
 func open_door():
 	for door in doors_node.get_children():
@@ -25,6 +28,12 @@ func spawn_enemies():
 		var mob = ENEMY_SCENES.ENEMY_TEMPLATE.instantiate()
 		mob.position = enemy.position
 		call_deferred("add_child", mob)
+		
+func spawn_crates():
+	for location in crate_positions.get_children():
+		var box = BOXES.Crate.instantiate()
+		box.position = location.position
+		call_deferred("add_child", box)
 
 func _on_detector_body_entered(_body): #area the player steps in to spawn enemies (by the entrance of the room)
 	player_detection.queue_free()
