@@ -1,8 +1,8 @@
 extends Node2D
 
 #Arrays that carry the room scenes for generation
-const BEGINNING: Array = [preload('res://Scenes/Rooms/room_b0.tscn'), preload('res://Scenes/Rooms/room_b1.tscn')]
-const MIDDLE: Array = [preload('res://Scenes/Rooms/room_m0.tscn'), preload('res://Scenes/Rooms/room_m1.tscn'), preload('res://Scenes/Rooms/room_m2.tscn')]
+const BEGINNING: Array = [preload('res://Scenes/Rooms/room_b0.tscn'), preload('res://Scenes/Rooms/room_b1.tscn'), preload('res://Scenes/Rooms/room_b2.tscn')]
+const MIDDLE: Array = [preload('res://Scenes/Rooms/room_m0.tscn'), preload('res://Scenes/Rooms/room_m1.tscn'), preload('res://Scenes/Rooms/room_m2.tscn'), preload('res://Scenes/Rooms/room_m3.tscn'), preload('res://Scenes/Rooms/room_m4.tscn')]
 const END: Array = [preload('res://Scenes/Rooms/room_e0.tscn'), preload('res://Scenes/Rooms/room_e1.tscn')]
 
 const TILE = 16 #texture size used for move rooms by the correct tile size (16x16 for all textures made)
@@ -24,6 +24,7 @@ func _process(_delta):
 		self.get_parent().get_node("Hud").set_floor(currentFloor) 
 		delete_rooms()
 		spawn_rooms()
+		delete_drops()
 		
 func spawn_rooms():
 	floorSize = 2 + (currentFloor) #calculates floor size based on how many floors the player has been through
@@ -63,3 +64,8 @@ func spawn_rooms():
 func delete_rooms(): #remove all child nodes (removing all rooms)
 	for x in get_children():
 		x.queue_free()
+		
+func delete_drops():
+	for x in get_parent().get_children():
+		if(x.has_method('isWeapon')):
+			x.queue_free()

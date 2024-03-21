@@ -1,13 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://dt0js4re4gfsd"]
 
-[ext_resource type="Script" path="res://Scripts/heart.gd" id="1_dc5ex"]
+[ext_resource type="Script" path="res://Scripts/Objects/heart.gd" id="1_r7vs1"]
 [ext_resource type="Texture2D" uid="uid://bax44m5ram511" path="res://ArtAssets/Objects/heart (16x16).png" id="2_r2oyy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7y65q"]
 radius = 3.0
 
 [node name="Heart" type="Node2D"]
-script = ExtResource("1_dc5ex")
+script = ExtResource("1_r7vs1")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)

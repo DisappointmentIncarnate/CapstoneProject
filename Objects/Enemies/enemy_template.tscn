@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://mb2pd48sti4s"]
 
-[ext_resource type="Script" path="res://Scripts/enemy_template.gd" id="1_q1rif"]
+[ext_resource type="Script" path="res://Scripts/Enemies/enemy_template.gd" id="1_q1rif"]
 [ext_resource type="Texture2D" uid="uid://bi06rn7a8s1t6" path="res://ArtAssets/Enemies/npc.png" id="2_hnt8g"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ndr83"]

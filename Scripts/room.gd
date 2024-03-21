@@ -31,9 +31,10 @@ func spawn_enemies():
 		
 func spawn_crates():
 	for location in crate_positions.get_children():
-		var box = BOXES.Crate.instantiate()
-		box.position = location.position
-		call_deferred("add_child", box)
+		if(randi() % 2 == 0): #50/50 chance that the box will spawn
+			var box = BOXES.Crate.instantiate()
+			box.position = location.position
+			call_deferred("add_child", box)
 
 func _on_detector_body_entered(_body): #area the player steps in to spawn enemies (by the entrance of the room)
 	player_detection.queue_free()

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bv5ledid5lnxb"]
 
-[ext_resource type="Script" path="res://Scripts/basic_spear.gd" id="1_0dyss"]
+[ext_resource type="Script" path="res://Scripts/Weapons/basic_spear.gd" id="1_0dyss"]
 [ext_resource type="Texture2D" uid="uid://bkomv0hn1kgbp" path="res://ArtAssets/Weapons/basic_spear.png" id="2_an2xc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lvp81"]

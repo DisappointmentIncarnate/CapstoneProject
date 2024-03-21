@@ -36,3 +36,6 @@ position = Vector2(0, 36)
 
 [node name="Stairs" parent="FloorEnd" index="0"]
 position = Vector2(104, 35)
+
+[node name="Marker2D" type="Marker2D" parent="Crate" index="0"]
+position = Vector2(377, 66)

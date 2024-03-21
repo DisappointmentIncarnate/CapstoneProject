@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://e3rfgqnpcst0"]
+[gd_scene load_steps=15 format=3 uid="uid://e3rfgqnpcst0"]
 
 [ext_resource type="PackedScene" uid="uid://bte8dvsh46l0p" path="res://Scenes/Ui/hud.tscn" id="1_gw5qx"]
 [ext_resource type="PackedScene" uid="uid://dmiexxcs7s0uj" path="res://Objects/player_char.tscn" id="1_yg44q"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://0omi5xiqqa3" path="res://Objects/Weapons/basic_dagger.tscn" id="8_rc64j"]
 [ext_resource type="PackedScene" uid="uid://x3utidbnify" path="res://Objects/crate.tscn" id="9_gvtlw"]
 [ext_resource type="PackedScene" uid="uid://dt0js4re4gfsd" path="res://Objects/heart.tscn" id="10_2wvm1"]
+[ext_resource type="PackedScene" uid="uid://c7ax58wbspqm4" path="res://Objects/Weapons/basic_sword.tscn" id="10_hbq8e"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fugnp"]
 texture = ExtResource("2_l8fv1")
@@ -166,3 +167,6 @@ position = Vector2(-51, -28)
 
 [node name="Heart" parent="." instance=ExtResource("10_2wvm1")]
 position = Vector2(-42, 37)
+
+[node name="basic_sword" parent="." instance=ExtResource("10_hbq8e")]
+position = Vector2(-15, -52)
