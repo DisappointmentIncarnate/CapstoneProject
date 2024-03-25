@@ -1,7 +1,7 @@
 extends Node2D
 
-const ENEMY_SCENES: Dictionary = {"ENEMY_TEMPLATE" : preload("res://Objects/Enemies/enemy_template.tscn")}
-const BOXES: Dictionary = {"Crate" : preload("res://Objects/crate.tscn")}
+const ENEMY_SCENES: Dictionary = {"ENEMY_TEMPLATE" : preload("res://Scenes/Objects/Enemies/enemy_template.tscn")}
+const BOXES: Dictionary = {"Crate" : preload("res://Scenes/Objects/crate.tscn")}
 var enemy_num: int
 @onready var doors_node = get_node("Doors")
 @onready var enemy_positions = get_node("Enemy")

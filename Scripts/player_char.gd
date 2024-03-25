@@ -23,7 +23,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if enemyContact and !invulnerability: #if the player is in contact with a damage source, and is not invulnerable
-		take_damage()
+		take_damage(damageOrigin.contactDamage)
 		print("PLAYER HEALTH: " + str(playerHealth))
 	if (Input.is_action_just_pressed("input1") and !weaponAction): #if you press the input, and you are currently not already performing an attack
 		weapon_attack(false)
@@ -59,12 +59,12 @@ func _on_hitbox_body_entered(body):
 	if(body.has_method('_on_aggro_range_body_entered')): #if the body that enters the range also has an aggro (i.e it's an enemy)
 		damageOrigin = body; #variable to reference the origin of the damage
 		enemyContact = true #flags whether or not the player is in contact with an enemy
-
+		
 func _on_hurt_invulnerability_timeout(): #after the timer wears out, invulnerability is disabled
 	invulnerability = false
 
-func take_damage(): #function to reduce player health, start damager invulernability timer
-	playerHealth = playerHealth - damageOrigin.contactDamage
+func take_damage(damageNum): #function to reduce player health, start damager invulernability timer
+	playerHealth = playerHealth - damageNum
 	$HurtInvulnerability.start()
 	invulnerability = true
 	if(playerHealth <= 0):
@@ -80,7 +80,7 @@ func _on_hitbox_body_exited(body): #if the player no longer is in contact with a
 func weapon_attack(isDrop):
 	weaponAction = true
 	if(weaponPath == null): #if theres ever a reason this breaks, the default weapon is the dagger
-		weaponPath = load('res://Objects/Weapons/basic_dagger.tscn')
+		weaponPath = load('res://Scenes/Objects/Weapons/basic_dagger.tscn')
 		
 	var weapon = weaponPath.instantiate()
 	weapon.direction = facingDirection
@@ -103,21 +103,23 @@ func swap_weapon():
 	weaponPath = load(newWeapon.scene_file_path) #makes a path to the weapon that was chosen)
 	remove_weapon(newWeapon)
 
-func _on_hitbox_area_entered(area): #function to detect whether the player is standing in an area (in this case used for weapons)
-	if(area.owner.has_method('isWeapon')):
+func _on_hitbox_area_entered(area): #function to detect whether an area2d is overlapping the player's hitbox
+	if(area.owner.has_method('isProjectile') and area.owner.fromPlayer == false): #detecting projectile
+		take_damage(area.owner.weaponDamage)
+	elif(area.owner.has_method('isWeapon')): #detecting if over a weapon
 		onWeapon = true
 		newWeapon = area.owner
 
-func _on_hitbox_area_exited(area):
+func _on_hitbox_area_exited(area): #if the player is no longer on a area2d
 	if(area == null):
 		onWeapon = false
 	elif(area.owner != null and area.owner.has_method('isWeapon') ):
 		onWeapon = false
 
-func remove_weapon(item):
+func remove_weapon(item): #removes the item from the ground
 	item.queue_free()
 
-func set_health(add): #method called on by external objects, like healing
+func set_health(add): #method to add hp but never exceeding max hp
 	if(playerHealth + add > 100): #max health of 100, never overflow
 		playerHealth = 100
 	else:

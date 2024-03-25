@@ -1,11 +1,12 @@
 extends CharacterBody2D
 
-@export var slowdown = 100
+@export var speed = 25
 @export var enemyHealth = 50
 @export var contactDamage = 5
 var detection = false
 var playerReference = null
 var invulnerability = false
+var knockback = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -15,10 +16,15 @@ func _ready():
 func _process(_delta):
 	pass
 	
-func _physics_process(_delta):
-	if detection:
-		global_position += (playerReference.global_position - global_position)/slowdown #move the enemy towards the position of the player, at a specific speed (higher slowdown, slower the speed)
-	move_and_collide(Vector2(0,0))
+func _physics_process(delta):
+	if detection and knockback == 0:
+		var direction = self.global_position.direction_to(playerReference.global_position)
+		velocity = direction * speed * delta
+	if knockback > 0:
+		var knockback_dir = playerReference.global_position.direction_to(self.global_position) #direction from weapon to self
+		velocity = (knockback_dir * knockback) * 5 #pushes the enemy back based on weapon knockback strength
+		knockback = 0
+	move_and_collide(velocity)
 	
 func _on_aggro_range_body_entered(body):
 	playerReference = body
@@ -37,8 +43,7 @@ func _on_hitbox_area_entered(area):
 		if(enemyHealth <= 0): #if it goes to or below 0 hp, remove from scene
 			queue_free()
 		else:
-			var knockback_dir = area.owner.global_position.direction_to(self.global_position) #direction from weapon to self
-			global_position += (knockback_dir * area.owner.weaponKnockback) * 5 #pushes the enemy back based on weapon knockback strength
+			knockback = area.owner.weaponKnockback
 
 
 func _on_hurt_invulnerability_timeout(): #damage invulnerability for 1s

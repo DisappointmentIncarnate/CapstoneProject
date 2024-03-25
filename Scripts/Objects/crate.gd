@@ -1,7 +1,7 @@
 extends Node2D
 
-const ITEMS: Array = [preload("res://Objects/heart.tscn") ]
-const WEAPONS: Array = [preload("res://Objects/Weapons/basic_spear.tscn"), preload("res://Objects/Weapons/basic_dagger.tscn"), preload("res://Objects/Weapons/basic_sword.tscn")]
+const ITEMS: Array = [preload("res://Scenes/Objects/heart.tscn") ]
+const WEAPONS: Array = [preload("res://Scenes/Objects/Weapons/basic_spear.tscn"), preload("res://Scenes/Objects/Weapons/basic_dagger.tscn"), preload("res://Scenes/Objects/Weapons/basic_sword.tscn")]
 var remainTime = 1.0
 var boxPosition
 
@@ -28,7 +28,7 @@ func dropItem():
 	var newItem
 	if(randi() % 7 == 0):
 		newItem = WEAPONS[randi() % ITEMS.size()].instantiate()
-	elif(randi() % 6 == 0):
+	elif(randi() % 2 == 0):
 		newItem = ITEMS[randi() % ITEMS.size()].instantiate()
 		
 	if(newItem != null):

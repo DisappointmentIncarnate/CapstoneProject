@@ -1,10 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://mb2pd48sti4s"]
+[gd_scene load_steps=6 format=3 uid="uid://rn4uj368w2du"]
 
-[ext_resource type="Script" path="res://Scripts/Enemies/enemy_template.gd" id="1_q1rif"]
-[ext_resource type="Texture2D" uid="uid://bi06rn7a8s1t6" path="res://ArtAssets/Enemies/npc.png" id="2_hnt8g"]
+[ext_resource type="Script" path="res://Scripts/Enemies/ranged_enemy_template.gd" id="1_fitjh"]
+[ext_resource type="Texture2D" uid="uid://bi06rn7a8s1t6" path="res://ArtAssets/Enemies/npc.png" id="2_v0nps"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ndr83"]
-radius = 54.0093
+radius = 125.016
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ihqj5"]
 size = Vector2(16, 16)
@@ -12,11 +12,11 @@ size = Vector2(16, 16)
 [sub_resource type="CircleShape2D" id="CircleShape2D_fjwe8"]
 radius = 11.0
 
-[node name="EnemyTemplate" type="CharacterBody2D"]
-script = ExtResource("1_q1rif")
+[node name="RangedEnemyTemplate" type="CharacterBody2D"]
+script = ExtResource("1_fitjh")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_hnt8g")
+texture = ExtResource("2_v0nps")
 
 [node name="AggroRange" type="Area2D" parent="."]
 collision_layer = 2
@@ -36,7 +36,10 @@ shape = SubResource("CircleShape2D_fjwe8")
 [node name="HurtInvulnerability" type="Timer" parent="."]
 wait_time = 0.5
 
+[node name="AttackSpeed" type="Timer" parent="."]
+
 [connection signal="body_entered" from="AggroRange" to="." method="_on_aggro_range_body_entered"]
 [connection signal="body_exited" from="AggroRange" to="." method="_on_aggro_range_body_exited"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="timeout" from="HurtInvulnerability" to="." method="_on_hurt_invulnerability_timeout"]
+[connection signal="timeout" from="AttackSpeed" to="." method="_on_attack_speed_timeout"]
