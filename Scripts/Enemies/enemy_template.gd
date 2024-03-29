@@ -36,6 +36,8 @@ func _on_aggro_range_body_exited(_body):
 
 func _on_hitbox_area_entered(area):
 	if(area.owner.has_method('isWeapon') and !invulnerability): #if a weapon enters the hitbox area
+		if(area.owner.isDrop == true): #running over dropped item
+			return
 		enemyHealth = enemyHealth - area.owner.weaponDamage
 		invulnerability = true
 		$HurtInvulnerability.start()
