@@ -20,15 +20,19 @@ func _physics_process(delta):
 	if detection and knockback == 0:
 		var direction = self.global_position.direction_to(playerReference.global_position)
 		velocity = direction * speed * delta
+		move_and_collide(velocity)
 	if knockback > 0:
 		var knockback_dir = playerReference.global_position.direction_to(self.global_position) #direction from weapon to self
 		velocity = (knockback_dir * knockback) * 5 #pushes the enemy back based on weapon knockback strength
 		knockback = 0
-	move_and_collide(velocity)
+		move_and_collide(velocity)
+	else:
+		move_and_collide(Vector2(0,0))
 	
 func _on_aggro_range_body_entered(body):
-	playerReference = body
-	detection = true
+	if(body.has_method('get_movement_input')): #ensures the body is the player
+		playerReference = body
+		detection = true
 
 func _on_aggro_range_body_exited(_body):
 	playerReference = null

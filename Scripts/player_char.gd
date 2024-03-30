@@ -43,21 +43,23 @@ func get_movement_input(): #left, right, up, down are set in the project setting
 	velocity = direction * speed
 	#Basic sprite change based on direction, will replace later when finalized sprite and animation
 	if(direction == Vector2.LEFT):
-		$Sprite2D.set_frame(2)
+		$AnimatedSprite2D.play("walk_left")
 		facingDirection = Vector2.LEFT
 	elif(direction == Vector2.RIGHT):
-		$Sprite2D.set_frame(4)
+		$AnimatedSprite2D.play("walk_right")
 		facingDirection = Vector2.RIGHT
 	elif(direction == Vector2.UP):
-		$Sprite2D.set_frame(6)
+		$AnimatedSprite2D.play("walk_up")
 		facingDirection = Vector2.UP
 	elif(direction == Vector2.DOWN):
-		$Sprite2D.set_frame(0)
+		$AnimatedSprite2D.play("walk_down")
 		facingDirection = Vector2.DOWN
+	else:
+		$AnimatedSprite2D.stop()
 
 func _on_hitbox_body_entered(body):
 	if(body.has_method('_on_aggro_range_body_entered')): #if the body that enters the range also has an aggro (i.e it's an enemy)
-		damageOrigin = body; #variable to reference the origin of the damage
+		damageOrigin = body #variable to reference the origin of the damage
 		enemyContact = true #flags whether or not the player is in contact with an enemy
 		
 func _on_hurt_invulnerability_timeout(): #after the timer wears out, invulnerability is disabled
