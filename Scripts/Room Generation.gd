@@ -69,3 +69,6 @@ func delete_drops():
 	for x in get_parent().get_children():
 		if(x.has_method('isWeapon')):
 			x.queue_free()
+
+func get_floor():
+	return currentFloor

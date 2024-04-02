@@ -8,9 +8,24 @@ var playerReference = null
 var invulnerability = false
 var knockback = 0
 
+var possibilityList = ["green_slime", "blue_slime", "red_slime"]
+var difficultyMult = 1
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	#Randomly selects an enemy from the list, and loads the speed, health, damage
+	var enemy = possibilityList[randi() % possibilityList.size()]
+	var scriptPath = "res://Scripts/Enemies/Collision/" + enemy + ".gd"
+	var scriptLoad = load(scriptPath).new()
+
+	speed = scriptLoad.get_speed() + calculateMult()
+	enemyHealth = scriptLoad.get_health() * calculateMult()
+	contactDamage = scriptLoad.get_contactDamage() + calculateMult()
+	
+	#Selects and plays the animation associated with the enemy
+	var animPath = "res://ArtAssets/Enemies/Animations/" + enemy + ".tres"
+	$AnimatedSprite2D.set_sprite_frames(load(animPath))
+	$AnimatedSprite2D.play()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -47,10 +62,22 @@ func _on_hitbox_area_entered(area):
 		$HurtInvulnerability.start()
 		print('Enemy Health: ' + str(enemyHealth))
 		if(enemyHealth <= 0): #if it goes to or below 0 hp, remove from scene
+			call_deferred("drop_item")
 			queue_free()
 		else:
 			knockback = area.owner.weaponKnockback
 
-
 func _on_hurt_invulnerability_timeout(): #damage invulnerability for 1s
 	invulnerability = false
+
+func drop_item():
+	#random chance to drop a heart item
+	if randi()%2 == 0:
+		var drop = preload("res://Scenes/Objects/heart.tscn").instantiate()
+		drop.position = self.position
+		get_parent().add_child(drop)
+
+func calculateMult(): #calculates a number based on the player's current floor divided by 5, used to ramp up other stats as the player progresses.
+	if(get_parent().get_parent().name == "Rooms"): #if the creature is setup in the rooms
+		var currentFloor = get_parent().get_parent().get_floor()
+		return ceil(currentFloor / 5.0)

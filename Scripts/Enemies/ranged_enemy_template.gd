@@ -56,6 +56,7 @@ func _on_hitbox_area_entered(area):
 		invulnerability = true
 		$HurtInvulnerability.start()
 		if(enemyHealth <= 0): #if it goes to or below 0 hp, remove from scene
+			call_deferred("drop_item")
 			queue_free()
 		else:
 			knockback = area.owner.weaponKnockback
@@ -78,3 +79,10 @@ func _on_attack_speed_timeout():
 	weapon.fromPlayer = false
 	get_parent().add_child(weapon)
 	attacking = false;
+	
+func drop_item():
+	#random chance to drop a heart item
+	if randi()%2 == 0:
+		var drop = preload("res://Scenes/Objects/heart.tscn").instantiate()
+		drop.position = self.position
+		get_parent().add_child(drop)
