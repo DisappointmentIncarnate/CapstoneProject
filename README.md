@@ -7,3 +7,9 @@
 
 ## Week 7-8
 - Randomizing level generation
+
+## Week 9-10
+- Variations of previous features
+
+## Week 11-12
+- Textures & etc.
