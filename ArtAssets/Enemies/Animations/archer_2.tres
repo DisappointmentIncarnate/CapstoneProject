@@ -1,0 +1,25 @@
+[gd_resource type="SpriteFrames" load_steps=4 format=3 uid="uid://dvs0a88osw7up"]
+
+[ext_resource type="Texture2D" uid="uid://dgwtboc7s1jhh" path="res://ArtAssets/Enemies/archer_2.png" id="1_o5tvn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qx6ex"]
+atlas = ExtResource("1_o5tvn")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jplqj"]
+atlas = ExtResource("1_o5tvn")
+region = Rect2(16, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qx6ex")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jplqj")
+}],
+"loop": true,
+"name": &"archer_2",
+"speed": 2.0
+}]

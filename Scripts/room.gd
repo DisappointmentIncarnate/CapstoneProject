@@ -1,6 +1,6 @@
 extends Node2D
 
-const ENEMY_SCENES: Dictionary = {"ENEMY_TEMPLATE" : preload("res://Scenes/Objects/Enemies/enemy_template.tscn")}
+const ENEMY_SCENES: Dictionary = {"COLLISION" : preload("res://Scenes/Objects/Enemies/enemy_template.tscn"), "RANGED" : preload("res://Scenes/Objects/Enemies/ranged_enemy_template.tscn")}
 const BOXES: Dictionary = {"Crate" : preload("res://Scenes/Objects/crate.tscn")}
 var enemy_num: int
 @onready var doors_node = get_node("Doors")
@@ -25,8 +25,12 @@ func close_door():
 
 func spawn_enemies():
 	for enemy in enemy_positions.get_children():
-		var mob = ENEMY_SCENES.ENEMY_TEMPLATE.instantiate()
-		mob.position = enemy.position
+		var mob
+		if(randi_range(1,4) != 4 ): #rolls 1-4, if 1-3 spawn collsion based enemy, if 4 spawn range based enemy
+			mob = ENEMY_SCENES.COLLISION.instantiate()
+		else:
+			mob = ENEMY_SCENES.RANGED.instantiate()
+		mob.global_position = enemy.position
 		call_deferred("add_child", mob)
 		
 func spawn_crates():

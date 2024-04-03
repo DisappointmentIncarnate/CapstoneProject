@@ -56,6 +56,7 @@ func get_movement_input(): #left, right, up, down are set in the project setting
 		facingDirection = Vector2.DOWN
 	else:
 		$AnimatedSprite2D.stop()
+	move_and_collide(Vector2(0,0))
 
 func _on_hitbox_body_entered(body):
 	if(body.has_method('_on_aggro_range_body_entered')): #if the body that enters the range also has an aggro (i.e it's an enemy)
@@ -80,6 +81,7 @@ func _on_hitbox_body_exited(body): #if the player no longer is in contact with a
 		
 #flags that a weapon attack has started, generates an instance of the weapon, properly redirections the sprite
 func weapon_attack(isDrop):
+	$AnimatedSprite2D.stop()
 	weaponAction = true
 	if(weaponPath == null): #if theres ever a reason this breaks, the default weapon is the dagger
 		weaponPath = load('res://Scenes/Objects/Weapons/basic_dagger.tscn')

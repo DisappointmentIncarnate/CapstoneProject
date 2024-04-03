@@ -5,6 +5,7 @@ extends CharacterBody2D
 @export var contactDamage = 5
 var detection = false
 var playerReference = null
+var attackOrigin = null
 var invulnerability = false
 var knockback = 0
 
@@ -21,6 +22,7 @@ func _ready():
 	speed = scriptLoad.get_speed() + calculateMult()
 	enemyHealth = scriptLoad.get_health() * calculateMult()
 	contactDamage = scriptLoad.get_contactDamage() + calculateMult()
+	%AggroShape.shape.radius = scriptLoad.get_attackRange()
 	
 	#Selects and plays the animation associated with the enemy
 	var animPath = "res://ArtAssets/Enemies/Animations/" + enemy + ".tres"
@@ -36,8 +38,14 @@ func _physics_process(delta):
 		var direction = self.global_position.direction_to(playerReference.global_position)
 		velocity = direction * speed * delta
 		move_and_collide(velocity)
+		
+		if(position.x - playerReference.global_position.x > 0): #whether or not to flip the animated sprite
+			$AnimatedSprite2D.set_flip_h(false) #don't flip
+		else:
+			$AnimatedSprite2D.set_flip_h(true) #flip
+			
 	if knockback > 0:
-		var knockback_dir = playerReference.global_position.direction_to(self.global_position) #direction from weapon to self
+		var knockback_dir = attackOrigin.global_position.direction_to(self.global_position) #direction from weapon to self
 		velocity = (knockback_dir * knockback) * 5 #pushes the enemy back based on weapon knockback strength
 		knockback = 0
 		move_and_collide(velocity)
@@ -48,6 +56,7 @@ func _on_aggro_range_body_entered(body):
 	if(body.has_method('get_movement_input')): #ensures the body is the player
 		playerReference = body
 		detection = true
+		
 
 func _on_aggro_range_body_exited(_body):
 	playerReference = null
@@ -55,6 +64,7 @@ func _on_aggro_range_body_exited(_body):
 
 func _on_hitbox_area_entered(area):
 	if(area.owner.has_method('isWeapon') and !invulnerability): #if a weapon enters the hitbox area
+		attackOrigin = area.owner #tracks the weapon that hits the enemy
 		if(area.owner.isDrop == true): #running over dropped item
 			return
 		enemyHealth = enemyHealth - area.owner.weaponDamage
@@ -81,3 +91,5 @@ func calculateMult(): #calculates a number based on the player's current floor d
 	if(get_parent().get_parent().name == "Rooms"): #if the creature is setup in the rooms
 		var currentFloor = get_parent().get_parent().get_floor()
 		return ceil(currentFloor / 5.0)
+	else:
+		return 1
