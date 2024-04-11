@@ -2,7 +2,6 @@ extends CharacterBody2D
 
 @export var speed = 200 #@export allows change to the variable without opening the script
 @export var playerHealth = 100
-var alive = true
 
 var invulnerability = false #whether or not to be invulnerable after taking a hit
 var enemyContact = false #whether an enemy is touching the player
@@ -24,10 +23,9 @@ func _ready():
 func _process(_delta):
 	if enemyContact and !invulnerability: #if the player is in contact with a damage source, and is not invulnerable
 		take_damage(damageOrigin.contactDamage)
-		print("PLAYER HEALTH: " + str(playerHealth))
-	if (Input.is_action_just_pressed("input1") and !weaponAction): #if you press the input, and you are currently not already performing an attack
+	if (Input.is_action_just_pressed("attack") and !weaponAction): #if you press the input, and you are currently not already performing an attack
 		weapon_attack(false)
-	if (Input.is_action_just_pressed("interact") and onWeapon):
+	if (Input.is_action_just_pressed("swap_weapon") and onWeapon):
 		swap_weapon()
 	
 # documentation states this function runs 60 times a second regardless of actual framerate, recommended for movement and things that can collide
@@ -71,8 +69,7 @@ func take_damage(damageNum): #function to reduce player health, start damager in
 	$HurtInvulnerability.start()
 	invulnerability = true
 	if(playerHealth <= 0):
-		alive = false
-		queue_free()
+		gameover()
 	self.get_parent().get_node("Hud").set_health(playerHealth) #changes the hud's text with the new total health
 
 func _on_hitbox_body_exited(body): #if the player no longer is in contact with an enemy
@@ -129,3 +126,10 @@ func set_health(add): #method to add hp but never exceeding max hp
 	else:
 		playerHealth = playerHealth + add
 	self.get_parent().get_node("Hud").set_health(playerHealth)
+	
+func gameover():
+	queue_free()
+	self.get_parent().get_node("Gameover").visible = true
+	self.get_parent().get_node("Gameover").global_position = self.global_position
+	self.get_parent().get_node("Gameover").focus_button()
+	self.get_parent().get_node("Gameover").update()

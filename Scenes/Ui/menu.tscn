@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=3 uid="uid://dq55lqxwihp1x"]
+
+[ext_resource type="Script" path="res://Scripts/UI/menu.gd" id="1_gb5h4"]
+[ext_resource type="PackedScene" uid="uid://c4q7jx0wmhpa1" path="res://Scenes/Ui/options.tscn" id="2_oocyh"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gb5h4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = -130.0
+offset_right = 180.0
+offset_bottom = -29.0
+grow_vertical = 0
+
+[node name="Start" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../Exit")
+text = "Start"
+
+[node name="Options" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Options"
+
+[node name="Exit" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../Start")
+text = "Exit"
+
+[node name="Options" parent="." instance=ExtResource("2_oocyh")]
+visible = false
+layout_mode = 1
+
+[connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_exit_pressed"]

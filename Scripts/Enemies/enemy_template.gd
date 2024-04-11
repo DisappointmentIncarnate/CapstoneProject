@@ -70,7 +70,6 @@ func _on_hitbox_area_entered(area):
 		enemyHealth = enemyHealth - area.owner.weaponDamage
 		invulnerability = true
 		$HurtInvulnerability.start()
-		print('Enemy Health: ' + str(enemyHealth))
 		if(enemyHealth <= 0): #if it goes to or below 0 hp, remove from scene
 			call_deferred("drop_item")
 			queue_free()

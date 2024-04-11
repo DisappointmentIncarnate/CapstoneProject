@@ -32,3 +32,6 @@ func set_floor(new_floor):
 	
 func update_floor_label():
 	floor_label.set_text("Floor: " + str(dungeonFloor))
+	
+func get_floor():
+	return dungeonFloor

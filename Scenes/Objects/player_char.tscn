@@ -154,7 +154,8 @@ wait_time = 0.5
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_iavh0")
 animation = &"walk_down"
-frame_progress = 0.514461
+frame = 3
+frame_progress = 0.0317772
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="area_exited" from="Hitbox" to="." method="_on_hitbox_area_exited"]

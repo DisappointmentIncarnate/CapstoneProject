@@ -26,9 +26,10 @@ func _on_hitbox_area_entered(area):
 
 func dropItem():
 	var newItem
-	if(randi() % 7 == 0):
+	var randNum = randi()
+	if(randNum % 3 == 0):
 		newItem = WEAPONS[randi() % ITEMS.size()].instantiate()
-	elif(randi() % 2 == 0):
+	elif(randNum % 2 == 0):
 		newItem = ITEMS[randi() % ITEMS.size()].instantiate()
 		
 	if(newItem != null):
