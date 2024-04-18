@@ -1,4 +1,4 @@
-# Capstone Project
+# Capstone Project - (joy34)
 This project is made for 2244 INFSCI 1740 SEC1200.
 The project is a small game/demo of an action roguelike game with the purpose of learning the Godot game engine and fulfilling capstone requirements.
 
