@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://dq55lqxwihp1x"]
+[gd_scene load_steps=5 format=3 uid="uid://dq55lqxwihp1x"]
 
 [ext_resource type="Script" path="res://Scripts/UI/menu.gd" id="1_gb5h4"]
 [ext_resource type="PackedScene" uid="uid://c4q7jx0wmhpa1" path="res://Scenes/Ui/options.tscn" id="2_oocyh"]
+[ext_resource type="Texture2D" uid="uid://1sf2ro3qpfbn" path="res://ArtAssets/Title_water.png" id="2_wilj4"]
+[ext_resource type="Texture2D" uid="uid://bw0dl6lu5le5p" path="res://ArtAssets/Title.png" id="3_u65ae"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -11,6 +13,35 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_gb5h4")
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_wilj4")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_u65ae")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="."]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 1
+offset_right = 436.0
+offset_bottom = 111.0
+theme_override_font_sizes/font_size = 39
+text = "Action Roguelike 
+Demo"
+horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
